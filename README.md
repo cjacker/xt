@@ -1,4 +1,3 @@
-#xt
 ### eXtremely simple Terminal based on VTE.
 
 xt is an eXtremely simple Terminal based on VTE, intend to be used with tilling wm such as i3/sway etc.
