@@ -7,12 +7,12 @@ xt [-r] [-k] [-f font] [-t transparent] [-n history] [[-e] command [args ...]]
 
 Args:
 
-* -r: reverse teminal color
-* -k: disable preset keyboard shortcuts
-* -f <string>: set font, such as "Monospace 11"
-* -t <int>: background tranparent percent
-* -n <int>: lines of history
-* -e <command [args ...]>: excute command with args, eat all remainning args.
+* -r: reverse terminal color
+* -k: disable default shortcuts
+* -f &lt;string&gt;: set font, such as "Monospace 11"
+* -t &lt;int&gt;: background tranparency percent
+* -n &lt;int&gt;: lines of history, default is unlimited
+* -e &lt;command [args ...]&gt;: excute command with args, eat all remainning args.
 
 ### Shortcuts:
 Default shortcuts can be disabled via '-k' arg.
