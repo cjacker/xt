@@ -1,0 +1,8 @@
+2017-10-18  Cjacker Huang <cjacker@foxmail.com>
+- enable more shortcut for copy/paste.
+- set TERM to xterm-256color
+- add foreground process monitor
+- not treat tmux as foreground proces
+
+2017-10-17  Cjacker Huang <cjacker@foxmail.com>
+- xt 0.1
