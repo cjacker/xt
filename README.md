@@ -18,7 +18,8 @@ Args:
 Default shortcuts can be disabled via '-k' arg.
 
 * Ctrl+Shift+c: copy to clipboard
-* Ctrl+Shift+v/Ctrl+Shift+y: paste from clipboard
+* Ctrl+Shift+v: paste from clipboard
+* Ctrl+Shift+y: paste from primary 
 * Ctrl+Shift+=: increase font size for session
 * Ctrl+-: decrease font size for session
 * Ctrl+=: reset font size to default value

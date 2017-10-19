@@ -97,7 +97,7 @@ on_key_press(VteTerminal *terminal,
                 vte_terminal_paste_clipboard(terminal);
                 return TRUE;
             case GDK_KEY_y:
-                vte_terminal_paste_clipboard(terminal);
+                vte_terminal_paste_primary(terminal);
                 return TRUE;
             case GDK_KEY_plus:
                 set_font_size(terminal, 1);
@@ -256,7 +256,8 @@ static void usage(void) {
          " -e <command [args ...]>: excute command with args, eat all remainning args.\n\n"
          "Shortcuts:\n"
          " Ctrl+Shift+c: copy to clipboard\n"
-         " Ctrl+Shift+v/Ctrl+Shift+y: paste from clipboard\n"
+         " Ctrl+Shift+v: paste from clipboard\n"
+         " Ctrl+Shift+y: paste from primary\n"
          " Ctrl+Shift+=: increase font size for session\n"
          " Ctrl+-: decrease font size for session\n"
          " Ctrl+=: reset font size to default value\n"
