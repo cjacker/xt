@@ -352,13 +352,13 @@ run:
 
     vte_terminal_set_colors(VTE_TERMINAL(terminal), &fg, &bg, NULL, 0);
 
-    const char *working_dir = NULL;
     VtePtyFlags pty_flags = VTE_PTY_DEFAULT;
     GSpawnFlags spawn_flags = G_SPAWN_SEARCH_PATH_FROM_ENVP |
                               VTE_SPAWN_NO_PARENT_ENVV;
     GCancellable *cancellable = NULL;
 
     
+    gchar *working_dir = NULL;
     gchar *shell = NULL;
 
     //set env
@@ -410,7 +410,7 @@ run:
         shell = g_strdup("/bin/bash");
 
     if(!working_dir)
-        working_dir = g_get_home_dir ();
+        working_dir = g_strdup(g_get_home_dir ());
 
     gchar ** run_command;
     if(command)
