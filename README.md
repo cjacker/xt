@@ -9,6 +9,7 @@ Args:
 
 * -r: reverse terminal color
 * -k: disable default shortcuts
+* -d: disable Gtk CSD. default for sway wm
 * -f &lt;string&gt;: set font, such as "Monospace 11"
 * -t &lt;int&gt;: background tranparency percent
 * -n &lt;int&gt;: lines of history, default is unlimited

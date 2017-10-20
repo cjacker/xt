@@ -32,6 +32,7 @@
 static int trans_percent = 0;
 static gboolean reverse = FALSE;
 static gboolean shortcuts = TRUE;
+static gboolean decorated = TRUE;
 //-1 means unlimited scroll back histroy 
 static int history = -1;
 static gchar * font = "Monospace 11";
@@ -253,6 +254,7 @@ static void usage(void) {
          "Args:\n"
          " -r: reverse terminal color\n"
          " -k: disable default shortcuts\n"
+         " -d: disable Gtk CSD, default for sway wm\n"
          " -f <string>: set font, such as \"Monospace 11\"\n"
          " -t <int>: background tranparency percent\n"
          " -n <int>: lines of history, default is unlimited\n"
@@ -277,6 +279,9 @@ int main(int argc, char **argv)
       break;
     case 'k':
       shortcuts = FALSE;
+      break;
+    case 'd':
+      decorated = FALSE;
       break;
     case 'e':
       if (argc > 0)
@@ -308,6 +313,15 @@ run:
     gtk_init(&argc, &argv);
 
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
+    //not show CSD when GDK_BACKEND=wayland
+    //disable GSD for sway by default.
+    if(getenv("SWAYSOCK"))
+        decorated = FALSE;
+
+    if(!decorated)
+        gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
+
     GtkWidget *terminal = vte_terminal_new();
     gtk_container_add(GTK_CONTAINER(window), terminal);
 
