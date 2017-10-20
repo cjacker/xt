@@ -167,8 +167,11 @@ have_foreground_process(VteTerminal *terminal)
 
     //special treatment for tmux, NOT treat it as foreground process.
     gchar * process_name = g_path_get_basename(get_process_name_by_pid(fgpid));
-    if(!g_strcmp0(process_name, "tmux"))
+    if(!g_strcmp0(process_name, "tmux")) {
+        g_free(process_name);
         return FALSE;
+    }
+    g_free(process_name);
 
     //no foreground process 
     if (fgpid == -1 || fgpid == child_pid)
@@ -429,6 +432,8 @@ run:
                           cancellable,
 						  spawn_callback,
                           NULL);
+    g_free(shell);
+    g_free(working_dir);
 
     gtk_widget_show_all(window);
     gtk_window_set_focus(GTK_WINDOW(window), terminal);
