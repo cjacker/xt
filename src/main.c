@@ -37,6 +37,7 @@ static gboolean decorated = TRUE;
 static int history = -1;
 static gchar * font = "Monospace 11";
 
+static gchar * colorscheme = "monokai";
 
 static gchar **command = NULL;
 char *argv0;
@@ -252,9 +253,10 @@ spawn_callback (VteTerminal *terminal,
 static void usage(void) {
   printf("Usage: xt [-r] [-k] [-f font] [-t transparent] [-n history] [[-e] command [args ...]]\n\n"
          "Args:\n"
-         " -r: reverse terminal color\n"
+         " -c <string>: set color scheme: plain, tango, solzarized, monokai, wombat\n"
+         " -r: reverse terminal color scheme to dark, default is light\n"
          " -k: disable default shortcuts\n"
-         " -d: disable Gtk CSD, default for sway wm\n"
+         " -w: disable Gtk CSD, default for sway wm\n"
          " -f <string>: set font, such as \"Monospace 11\"\n"
          " -t <int>: background tranparency percent\n"
          " -n <int>: lines of history, default is unlimited\n"
@@ -274,13 +276,16 @@ static void usage(void) {
 int main(int argc, char **argv)
 {
     ARGBEGIN {
+    case 'c':
+      colorscheme = EARGF(usage());
+      break;
     case 'r':
       reverse = TRUE;
       break;
     case 'k':
       shortcuts = FALSE;
       break;
-    case 'd':
+    case 'w':
       decorated = FALSE;
       break;
     case 'e':
@@ -355,7 +360,13 @@ run:
     fg.alpha = 1.0;
     bg.alpha = (double)(100 - trans_percent)/100.0;
 
-    if(reverse) {
+    if(!g_strcmp0(colorscheme, "plain")) {
+        //black/white
+        fg.red = fg.green = fg.blue = 0.0;
+        bg.red = bg.green = bg.blue = 1.0;
+    }
+
+    if(!g_strcmp0(colorscheme, "tango")) {
         //tango color
         //bg:#eeeeec
         //fg:#2e3436
@@ -366,19 +377,54 @@ run:
         fg.red = 46.0/255;
         fg.green = 52.0/255;
         fg.blue = 54.0/255;
-    } else {
-        //tango dark color
-        //fg:#eeeeec
-        //bg:#2e3436
-        
-        fg.red = 238.0/255;
-        fg.green = 238.0/255;
-        fg.blue = 236.0/255;
-
-        bg.red = 46.0/255;
-        bg.green = 52.0/255;
-        bg.blue = 54.0/255;
     }
+
+    if(!g_strcmp0(colorscheme, "solarized")) {
+        //solarized color
+        //bg:#eee8d5
+        //fg:#073642
+        bg.red = 238.0/255;
+        bg.green = 232.0/255;
+        bg.blue = 213.0/255;
+
+        fg.red = 7.0/255;
+        fg.green = 54.0/255;
+        fg.blue = 66.0/255;
+    }
+
+    if(!g_strcmp0(colorscheme, "wombat")) {
+        //wombat color
+        //bg:#f6f3e8
+        //fg:#242424
+        bg.red = 246.0/255;
+        bg.green = 243.0/255;
+        bg.blue = 232.0/255;
+
+        fg.red = 36.0/255;
+        fg.green = 36.0/255;
+        fg.blue = 36.0/255;
+    }
+
+    if(!g_strcmp0(colorscheme, "monokai")) {
+        //monokai color
+        //bg:#f8f8f2
+        //fg:#272822
+        bg.red = 248.0/255;
+        bg.green = 248.0/255;
+        bg.blue = 242.0/255;
+
+        fg.red = 39.0/255;
+        fg.green = 40.0/255;
+        fg.blue = 34.0/255;
+    }
+
+
+    if(reverse) {
+       GdkRGBA swap = bg;
+       bg = fg;
+       fg = swap;  
+    }
+
     vte_terminal_set_colors(VTE_TERMINAL(terminal), &fg, &bg, NULL, 0);
 
     VtePtyFlags pty_flags = VTE_PTY_DEFAULT;
