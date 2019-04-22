@@ -37,7 +37,7 @@ static gboolean decorated = TRUE;
 static int history = -1;
 static gchar * font = "Monospace 11";
 
-static gchar * colorscheme = "monokai";
+static gchar * colorscheme = "plain";
 
 static gchar **command = NULL;
 char *argv0;
