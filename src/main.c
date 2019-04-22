@@ -351,19 +351,34 @@ run:
 
 
     GdkRGBA fg;
-    fg.alpha = 1.0;
-    if(reverse)
-        fg.red = fg.green = fg.blue = 0.0;
-    else
-        fg.red = fg.green = fg.blue = 1.0;
-
     GdkRGBA bg;
+    fg.alpha = 1.0;
     bg.alpha = (double)(100 - trans_percent)/100.0;
-    if(reverse)
-        bg.red = bg.green = bg.blue = 1.0;
-    else
-        bg.red = bg.green = bg.blue = 0.0;
 
+    if(reverse) {
+        //tango color
+        //bg:#eeeeec
+        //fg:#2e3436
+        bg.red = 238.0/255;
+        bg.green = 238.0/255;
+        bg.blue = 236.0/255;
+
+        fg.red = 46.0/255;
+        fg.green = 52.0/255;
+        fg.blue = 54.0/255;
+    } else {
+        //tango dark color
+        //fg:#eeeeec
+        //bg:#2e3436
+        
+        fg.red = 238.0/255;
+        fg.green = 238.0/255;
+        fg.blue = 236.0/255;
+
+        bg.red = 46.0/255;
+        bg.green = 52.0/255;
+        bg.blue = 54.0/255;
+    }
     vte_terminal_set_colors(VTE_TERMINAL(terminal), &fg, &bg, NULL, 0);
 
     VtePtyFlags pty_flags = VTE_PTY_DEFAULT;
