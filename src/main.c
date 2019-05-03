@@ -253,7 +253,7 @@ spawn_callback (VteTerminal *terminal,
 static void usage(void) {
   printf("Usage: xt [-r] [-k] [-f font] [-t transparent] [-n history] [[-e] command [args ...]]\n\n"
          "Args:\n"
-         " -c <string>: set color scheme: plain, tango, solarized, monokai, wombat\n"
+         " -c <string>: set color scheme: tango, solarized, monokai, wombat\n"
          " -r: reverse terminal color scheme to dark, default is light\n"
          " -k: disable default shortcuts\n"
          " -w: disable Gtk CSD, default for sway wm\n"
@@ -360,11 +360,6 @@ run:
     fg.alpha = 1.0;
     bg.alpha = (double)(100 - trans_percent)/100.0;
 
-    if(!g_strcmp0(colorscheme, "plain")) {
-        //black/white
-        fg.red = fg.green = fg.blue = 0.0;
-        bg.red = bg.green = bg.blue = 1.0;
-    }
 
     if(!g_strcmp0(colorscheme, "tango")) {
         //tango color
@@ -377,9 +372,7 @@ run:
         fg.red = 46.0/255;
         fg.green = 52.0/255;
         fg.blue = 54.0/255;
-    }
-
-    if(!g_strcmp0(colorscheme, "solarized")) {
+    } else if(!g_strcmp0(colorscheme, "solarized")) {
         //solarized color
         //bg:#eee8d5
         //fg:#073642
@@ -390,9 +383,7 @@ run:
         fg.red = 7.0/255;
         fg.green = 54.0/255;
         fg.blue = 66.0/255;
-    }
-
-    if(!g_strcmp0(colorscheme, "wombat")) {
+    } else if(!g_strcmp0(colorscheme, "wombat")) {
         //wombat color
         //bg:#f6f3e8
         //fg:#242424
@@ -403,9 +394,7 @@ run:
         fg.red = 36.0/255;
         fg.green = 36.0/255;
         fg.blue = 36.0/255;
-    }
-
-    if(!g_strcmp0(colorscheme, "monokai")) {
+    } else if(!g_strcmp0(colorscheme, "monokai")) {
         //monokai color
         //bg:#f8f8f2
         //fg:#272822
@@ -416,6 +405,10 @@ run:
         fg.red = 39.0/255;
         fg.green = 40.0/255;
         fg.blue = 34.0/255;
+    } else {
+        //black/white
+        fg.red = fg.green = fg.blue = 0.0;
+        bg.red = bg.green = bg.blue = 1.0;
     }
 
 
