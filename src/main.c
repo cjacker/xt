@@ -253,7 +253,7 @@ spawn_callback (VteTerminal *terminal,
 static void usage(void) {
   printf("Usage: xt [-r] [-k] [-f font] [-t transparent] [-n history] [[-e] command [args ...]]\n\n"
          "Args:\n"
-         " -c <string>: set color scheme: plain, tango, solzarized, monokai, wombat\n"
+         " -c <string>: set color scheme: plain, tango, solarized, monokai, wombat\n"
          " -r: reverse terminal color scheme to dark, default is light\n"
          " -k: disable default shortcuts\n"
          " -w: disable Gtk CSD, default for sway wm\n"
