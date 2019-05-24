@@ -477,6 +477,8 @@ run:
     if(!shell)
         shell = g_strdup("/bin/bash");
 
+    gchar *shell_command[2] = {shell, NULL};
+
     if(!working_dir)
         working_dir = g_strdup(g_get_home_dir ());
 
@@ -484,7 +486,7 @@ run:
     if(command)
        run_command = command;
     else
-       run_command = (gchar *[]){shell , NULL };
+       run_command = shell_command;
 
     //spawn command.
     vte_terminal_spawn_async (VTE_TERMINAL(terminal),
